@@ -1,4 +1,4 @@
-/* Reset and global styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -12,14 +12,14 @@ body {
     line-height: 1.6;
 }
 
-/* Container utility */
+
 .container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Header styles */
+
 header {
     background: #3b5998;
     padding: 15px 0;
@@ -68,7 +68,7 @@ header .logo {
     background: #ff784e;
 }
 
-/* Hero section */
+
 .hero {
     display: flex;
     flex-wrap: wrap;
@@ -121,7 +121,7 @@ header .logo {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer styles */
+
 footer {
     text-align: center;
     padding: 20px;
