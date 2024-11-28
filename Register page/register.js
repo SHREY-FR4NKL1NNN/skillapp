@@ -27,16 +27,6 @@ const provider = new GoogleAuthProvider();
 const submit = document.getElementById("submit");
 const googlebtn = document.getElementById("google-signin");
 
-//function for google login
-// const googleSignin = async () => {
-//   signInWithPopup(auth1,provider)
-//   .then((result) => {
-//     const user=result.user;
-//   }).catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//   })
-// }
 
 //function for login
 
