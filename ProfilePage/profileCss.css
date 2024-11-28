@@ -184,6 +184,28 @@ header {
     color: #555;
 }
 
+.reach-out-btn {
+    background-color: #FFD700; /* Yellowish Gold */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.reach-out-btn:hover {
+    background-color: #FFC107; /* Slightly darker gold */
+    transform: scale(1.05);
+}
+
+.reach-out-btn:active {
+    background-color: #FFB300; /* Darker gold */
+    transform: scale(0.98);
+}
+
 
 footer {
     text-align: center;
