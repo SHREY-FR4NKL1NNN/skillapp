@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+//import { getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,22 +21,21 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const auth1 = getAuth();
-const provider = new GoogleAuthProvider(); 
+//const provider = new GoogleAuthProvider(); 
 
 const submit = document.getElementById("submit");
-const googlebtn = document.getElementById("google-signin");
+//const googlebtn = document.getElementById("google-signin");
 
 //function for google login
-const googleSignin = async () => {
-  signInWithPopup(auth1,provider)
-  .then((result) => {
-    const user=result.user;
-  }).catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  })
-}
+// const googleSignin = async () => {
+//   signInWithPopup(auth1,provider)
+//   .then((result) => {
+//     const user=result.user;
+//   }).catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   })
+// }
 
 //function for login
 
@@ -60,17 +59,17 @@ submit.addEventListener("click", function(event){
     // ..
   });
 })
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    //const uid = user.uid;
-    // ...
-    alert("Welcome "+user.email);
-  } else {
-    // User is signed out
-    // ...
-  }
-});
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     // User is signed in, see docs for a list of available properties
+//     // https://firebase.google.com/docs/reference/js/firebase.User
+//     //const uid = user.uid;
+//     // ...
+//     alert("Welcome "+user.email);
+//   } else {
+//     // User is signed out
+//     // ...
+//   }
+// });
 
-googlebtn.addEventListener("click",googleSignin);
+// googlebtn.addEventListener("click",googleSignin);
