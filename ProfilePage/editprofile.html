@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="editprofile.css">
+    <title>Edit Profile</title>
+    <script type="module" src="editprofile.js" defer></script>
+</head>
+
+<body>
+    <form class="edit-profile-form">
+        <label for="profile-picture">Profile Picture</label>
+        <input type="file" id="profile-picture" name="profile-picture">
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="">
+
+        <label for="country">Country</label>
+        <input type="text" id="country" name="country" value="">
+
+        <label for="phone-number">Phone Number</label>
+        <input type="text" id="phone-number" name="phone-number" value="">
+
+        <label for="skills">Skills</label>
+        <div id="skills-container">
+            <input type="text" id="skill-input" placeholder="Enter a skill">
+            <button type="button" id="add-skill">Add Skill</button>
+            <ul id="skills-list"></ul>
+        </div>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+
+</html>
+
