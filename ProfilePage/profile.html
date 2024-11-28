@@ -5,64 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Skill Exchange</title>
     <link rel="stylesheet" href="profileCss.css">
+    <script type="module" src="profile.js" defer></script>
 </head>
 <body>
     <header>
         <div class="container header-container">
-            <div class="logo">Skill Exchange</div>
+            <div class="logo"><a id="logo" href="../homePage/afterHomePage.html">Skill Exchange</a></div>
             <nav>
-                <ul class="nav-links">
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="logout.html" class="cta">Logout</a></li>
-                </ul>
+                <!-- Navigation links can be added here -->
             </nav>
         </div>
     </header>
-q
     <main>
         <section class="profile">
             <div class="profile-header">
                 <div class="profile-avatar-container">
-                    <img src="https://st2.depositphotos.com/1643295/7439/i/450/depositphotos_74390343-Smiling-software-developer.jpg" alt="User Avatar" class="profile-avatar">
+                    <img src="https://st2.depositphotos.com/1643295/7439/i/450/depositphotos_74390343-Smiling-software-developer.jpg" alt="User Avatar" class="profile-avatar" id="avatar">
                 </div>
-                <h1>Ayush Kumar</h1>
-                <p class="tagline">Web Developer | Mentor | Designer</p>
-                <button class="btn contact-btn">Contact</button>
+                <h1 id="username"></h1>
+                <p class="tagline" id="country"></p>
             </div>
             
             <div class="profile-details">
+                <div class="availability">
+                    <h2>Phone Number</h2>
+                    <p id="phone-number"></p>
+                </div>
                 <div class="skills">
                     <h2>Skills</h2>
-                    <div class="skill-item">
-                        <span>HTML & CSS</span>
-                        <div class="skill-rating">
-                            <span>★★★★★</span>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span>JavaScript</span>
-                        <div class="skill-rating">
-                            <span>★★★★☆</span>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <span>Graphic Design</span>
-                        <div class="skill-rating">
-                            <span>★★★★☆</span>
-                        </div>
+                    <div id="skills-container">
+                        <!-- Skills will be populated here -->
                     </div>
                 </div>
 
                 <div class="reviews">
                     <h2>Reviews</h2>
                     <div class="review-card">
-                        <p>"Ayush's mentorship helped me gain confidence in web development. Highly recommended!"</p>
-                        <span>- Rohit Gupta</span>
-                    </div>
-                    <div class="review-card">
-                        <p>"His designs are creative and professional. Loved working with her!"</p>
-                        <span>- Amir Khan</span>
+                        <p>"Mentorship helped me gain confidence in web development. Highly recommended!"</p>
+                        <span>- User</span>
                     </div>
                 </div>
 
@@ -71,9 +51,16 @@ q
                     <p>Mon - Fri: 9 AM - 5 PM</p>
                     <p>Sat: 10 AM - 2 PM</p>
                 </div>
+                <br>
+                <div>
+                    <button class="edit-btn" onclick="window.location.href='editProfile.html'">Edit Profile</button>
+                </div>
             </div>
         </section>
     </main>
-
+    <script>
+        
+    </script>
 </body>
 </html>
+
