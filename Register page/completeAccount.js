@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -39,28 +39,43 @@ addSkillButton.addEventListener('click', () => {
 
 // Form submission
 form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // Prevent default form submission
 
     const username = document.getElementById('username').value.trim();
     const country = document.getElementById('country').value.trim();
     const phoneNumber = document.getElementById('phone-number').value.trim();
 
+    // Validation
     if (!username || !country || !/^\d{10}$/.test(phoneNumber)) {
         alert("Please fill in all fields correctly.");
         return;
     }
 
-    console.log("Attempting to save data to Firestore...");
-
     try {
-        await setDoc(doc(db, "users", username), {
+        // Check if the user already exists
+        const userRef = doc(db, "users", username);
+        const userSnap = await getDoc(userRef);
+
+        // If user exists, alert and stop execution
+        if (userSnap.exists()) {
+            alert("User already exists. Please use a different username.");
+            console.log("User already exists:", username);  // Debugging log
+            return; // Stop execution here
+        }
+
+        // Save the new user data if user does not exist
+        await setDoc(userRef, {
             username: username,
             skills: skills,
             country: country,
             phoneNumber: phoneNumber
         });
+
+        console.log("User data saved successfully");  // Debugging log
+
+        // Ensure the user is redirected only after data is saved
         alert("Account setup complete! Data saved to Firestore.");
-        window.location.href = "../homePage/afterHomePage.html";
+        window.location.href = "../homePage/afterHomePage.html"; // Redirect after successful data save
     } catch (error) {
         console.error("Error saving data to Firestore:", error);
         alert("An error occurred while saving data. Please try again.");
