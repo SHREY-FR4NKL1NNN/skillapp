@@ -12,7 +12,16 @@
 <body>
     <form class="edit-profile-form">
         <label for="profile-picture">Profile Picture</label>
-        <input type="file" id="profile-picture" name="profile-picture">
+        
+        <!-- Display the predefined images -->
+        <div id="profile-picture-selection">
+            <img src="profile_pictures/pic1.webp" alt="Profile 1" class="profile-option" data-image="profile_pictures/pic1.webp">
+            <img src="profile_pictures/pic2.webp" alt="Profile 2" class="profile-option" data-image="profile_pictures/pic2.webp">
+            <!-- Add more images as needed -->
+        </div>
+
+        <!-- Image preview of the selected profile picture -->
+        <img id="profile-picture-preview" alt="Profile Picture" src="" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-top: 10px;">
 
         <label for="username">Username</label>
         <input type="text" id="username" name="username" value="">
@@ -35,4 +44,3 @@
 </body>
 
 </html>
-

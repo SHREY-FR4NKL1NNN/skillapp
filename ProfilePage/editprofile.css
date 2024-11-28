@@ -18,8 +18,7 @@ label {
     margin-bottom: 10px;
 }
 
-input[type="text"],
-input[type="file"] {
+input[type="text"] {
     width: calc(100% - 20px); /* Adjust width to account for padding */
     padding: 10px;
     margin-bottom: 20px;
@@ -41,3 +40,33 @@ button[type="submit"]:hover {
     background-color: #2980b9;
 }
 
+/* Profile picture selection style */
+#profile-picture-selection {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.profile-option {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#skills-container {
+    margin-bottom: 20px;
+}
+
+#skills-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#skills-list li {
+    background-color: #f5f5f5;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}

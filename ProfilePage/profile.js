@@ -1,63 +1,73 @@
- // JavaScript to handle profile updates
- document.addEventListener('DOMContentLoaded', function() {
-    const usernameInput = document.getElementById('username');
-    const countryInput = document.getElementById('country');
-    const phoneNumberInput = document.getElementById('phone-number');
-    const skillsContainer = document.getElementById('skills-container');
-    const username = localStorage.getItem('username');
-        const country = localStorage.getItem('country');
-        const phoneNumber = localStorage.getItem('phoneNumber');
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
-        document.getElementById('username').textContent = username;
-        document.getElementById('country').textContent = country;
-        document.getElementById('phone-number').textContent = phoneNumber;
+// Firebase config
+const firebaseConfig = {
+    apiKey: "AIzaSyAiKb62wolxendqGdHNXgJbpD9iW1AZ_2o",
+    authDomain: "login-a6bd8.firebaseapp.com",
+    projectId: "login-a6bd8",
+    storageBucket: "login-a6bd8.appspot.com",
+    messagingSenderId: "438254811414",
+    appId: "1:438254811414:web:e99cc823002faf74e33837",
+    measurementId: "G-H4291FRM9W"
+};
 
-    document.getElementById('skills-add').addEventListener('click', function() {
-        const newSkillDiv = document.createElement('div');
-        newSkillDiv.classList.add('skill-item');
-        newSkillDiv.contentEditable = true;
-        newSkillDiv.innerHTML = `<span></span><div class="skill-rating"><span>★★★★★</span></div>`;
-        skillsContainer.appendChild(newSkillDiv);
-    });
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
-    document.getElementById('skills-remove').addEventListener('click', function() {
-        const skills = skillsContainer.children;
-        if (skills.length > 0) {
-            skills[skills.length - 1].remove();
-        }
-    });
+// DOM references
+const usernameElem = document.getElementById('username');
+const countryElem = document.getElementById('country');
+const phoneNumberElem = document.getElementById('phone-number');
+const skillsContainer = document.getElementById('skills-container');
+const profilePictureElem = document.getElementById('avatar');
 
-    document.getElementById('profile-update').addEventListener('click', function() {
-        const username = usernameInput.value.trim();
-        const country = countryInput.value.trim();
-        const phoneNumber = phoneNumberInput.value.trim();
-        const skills = [];
-        for (const skill of skillsContainer.children) {
-            skills.push(skill.firstElementChild.textContent.trim());
-        }
-        localStorage.setItem('username', username);
-        localStorage.setItem('country', country);
-        localStorage.setItem('phoneNumber', phoneNumber);
-        localStorage.setItem('skills', JSON.stringify(skills));
-        alert('Profile updated!');
-    });
+// Listen for authentication state change to get the current user's UID
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const userId = user.uid;  // Get the authenticated user's UID
+        const userRef = ref(db, 'users/' + userId);  // Reference to the user's data in the database
 
-    // Set the initial values from localStorage
-    const storedUsername = localStorage.getItem('username');
-    const storedCountry = localStorage.getItem('country');
-    const storedPhoneNumber = localStorage.getItem('phoneNumber');
-    const storedSkills = JSON.parse(localStorage.getItem('skills'));
+        // Fetch user data from Realtime Database
+        get(userRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
 
-    if (storedUsername) usernameInput.value = storedUsername;
-    if (storedCountry) countryInput.value = storedCountry;
-    if (storedPhoneNumber) phoneNumberInput.value = storedPhoneNumber;
-    if (storedSkills && storedSkills.length > 0) {
-        storedSkills.forEach(skill => {
-            const skillDiv = document.createElement('div');
-            skillDiv.classList.add('skill-item');
-            skillDiv.contentEditable = true;
-            skillDiv.innerHTML = `<span>${skill}</span><div class="skill-rating"><span>★★★★★</span></div>`;
-            skillsContainer.appendChild(skillDiv);
+                // Populate the profile with the fetched data
+                usernameElem.textContent = userData.username || 'No username set';
+                countryElem.textContent = userData.country || 'No country set';
+                phoneNumberElem.textContent = userData.phoneNumber || 'No phone number set';
+
+                // Populate skills
+                if (userData.skills && Array.isArray(userData.skills)) {
+                    skillsContainer.innerHTML = '';  // Clear any previous skill data
+                    userData.skills.forEach(skill => {
+                        const skillElem = document.createElement('p');
+                        skillElem.textContent = skill;
+                        skillsContainer.appendChild(skillElem);
+                    });
+                } else {
+                    skillsContainer.innerHTML = '<p>No skills added yet.</p>';
+                }
+
+                // Optionally, display the profile picture if available
+                if (userData.profilePicture) {
+                    profilePictureElem.src = userData.profilePicture;  // Assuming you have an <img> tag with this ID
+                } else {
+                    profilePictureElem.src = 'default-profile-picture-url';  // Default image if no profile picture exists
+                }
+            } else {
+                console.log("No data available for the user.");
+                alert("No profile data found.");
+            }
+        }).catch((error) => {
+            console.error("Error fetching data from Realtime Database:", error);
         });
+    } else {
+        // If no user is signed in, you could redirect or show a message
+        alert("User is not signed in.");
     }
 });

@@ -20,21 +20,25 @@
         <section class="profile">
             <div class="profile-header">
                 <div class="profile-avatar-container">
-                    <img src="https://st2.depositphotos.com/1643295/7439/i/450/depositphotos_74390343-Smiling-software-developer.jpg" alt="User Avatar" class="profile-avatar" id="avatar">
+                    <!-- Default image is shown unless the Firebase profile picture is loaded -->
+                    <img src="https://st2.depositphotos.com/1643295/7439/i/450/depositphotos_74390343-Smiling-software-developer.jpg" 
+                         alt="User Avatar" class="profile-avatar" id="avatar">
                 </div>
-                <h1 id="username"></h1>
-                <p class="tagline" id="country"></p>
+                <!-- Username will be dynamically inserted here -->
+                <h1 id="username">Loading...</h1>
+                <p class="tagline" id="country">Loading...</p>
             </div>
             
             <div class="profile-details">
                 <div class="availability">
                     <h2>Phone Number</h2>
-                    <p id="phone-number"></p>
+                    <p id="phone-number">Loading...</p>
                 </div>
                 <div class="skills">
                     <h2>Skills</h2>
                     <div id="skills-container">
-                        <!-- Skills will be populated here -->
+                        <!-- Skills will be populated here dynamically -->
+                        <p>Loading skills...</p>
                     </div>
                 </div>
 
@@ -58,9 +62,5 @@
             </div>
         </section>
     </main>
-    <script>
-        
-    </script>
 </body>
 </html>
-

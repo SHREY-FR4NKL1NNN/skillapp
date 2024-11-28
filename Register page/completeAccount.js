@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";  // Import Realtime Database SDK
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -69,6 +69,9 @@ form.addEventListener('submit', async (e) => {
 
     console.log("User data saved successfully");
     alert("Account setup complete! Data saved to Realtime Database.");
+
+    // Store UID in localStorage for future use
+    localStorage.setItem('uid', uid);
 
     // Redirect after saving data
     window.location.href = "../homePage/afterHomePage.html"; // Redirect to homepage or another page
