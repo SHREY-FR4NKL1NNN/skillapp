@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";  // Import Realtime Database SDK
 
 // Firebase config
 const firebaseConfig = {
@@ -14,7 +14,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
+// Initialize Realtime Database
+const db = getDatabase(app);
+
+// Get user UID from URL (passed from the registration page)
+const urlParams = new URLSearchParams(window.location.search);
+const uid = urlParams.get('uid');  // Ensure this UID is passed correctly to the page
 
 // DOM references
 const form = document.getElementById('complete-account-form');
@@ -25,59 +31,49 @@ const addSkillButton = document.getElementById('add-skill');
 
 // Add skill to list
 addSkillButton.addEventListener('click', () => {
-    const skill = skillInput.value.trim();
-    if (skill) {
-        skills.push(skill);
-        const listItem = document.createElement('li');
-        listItem.textContent = skill;
-        skillsList.appendChild(listItem);
-        skillInput.value = '';
-    } else {
-        alert("Please enter a valid skill.");
-    }
+  const skill = skillInput.value.trim();
+  if (skill) {
+    skills.push(skill);
+    const listItem = document.createElement('li');
+    listItem.textContent = skill;
+    skillsList.appendChild(listItem);
+    skillInput.value = '';
+  } else {
+    alert("Please enter a valid skill.");
+  }
 });
 
 // Form submission
 form.addEventListener('submit', async (e) => {
-    e.preventDefault();  // Prevent default form submission
+  e.preventDefault(); // Prevent default form submission
 
-    const username = document.getElementById('username').value.trim();
-    const country = document.getElementById('country').value.trim();
-    const phoneNumber = document.getElementById('phone-number').value.trim();
+  const username = document.getElementById('username').value.trim();
+  const country = document.getElementById('country').value.trim();
+  const phoneNumber = document.getElementById('phone-number').value.trim();
 
-    // Validation
-    if (!username || !country || !/^\d{10}$/.test(phoneNumber)) {
-        alert("Please fill in all fields correctly.");
-        return;
-    }
+  // Validation
+  if (!username || !country || !/^\d{10}$/.test(phoneNumber)) {
+    alert("Please fill in all fields correctly.");
+    return;
+  }
 
-    try {
-        // Check if the user already exists
-        const userRef = doc(db, "users", username);
-        const userSnap = await getDoc(userRef);
+  try {
+    // Save the new user data to Realtime Database under the user's UID
+    const userRef = ref(db, 'users/' + uid); // Path to store user data under 'users/{uid}'
+    await set(userRef, {
+      username: username,
+      skills: skills,
+      country: country,
+      phoneNumber: phoneNumber
+    });
 
-        // If user exists, alert and stop execution
-        if (userSnap.exists()) {
-            alert("User already exists. Please use a different username.");
-            console.log("User already exists:", username);  // Debugging log
-            return; // Stop execution here
-        }
+    console.log("User data saved successfully");
+    alert("Account setup complete! Data saved to Realtime Database.");
 
-        // Save the new user data if user does not exist
-        await setDoc(userRef, {
-            username: username,
-            skills: skills,
-            country: country,
-            phoneNumber: phoneNumber
-        });
-
-        console.log("User data saved successfully");  // Debugging log
-
-        // Ensure the user is redirected only after data is saved
-        alert("Account setup complete! Data saved to Firestore.");
-        window.location.href = "../homePage/afterHomePage.html"; // Redirect after successful data save
-    } catch (error) {
-        console.error("Error saving data to Firestore:", error);
-        alert("An error occurred while saving data. Please try again.");
-    }
+    // Redirect after saving data
+    window.location.href = "../homePage/afterHomePage.html"; // Redirect to homepage or another page
+  } catch (error) {
+    console.error("Error saving data to Realtime Database:", error);
+    alert("An error occurred while saving data. Please try again.");
+  }
 });
