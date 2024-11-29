@@ -30,57 +30,20 @@
     <!-- Filter Section -->
     <section class="filter-section">
         <form id="filterForm">
-            <input type="text" placeholder="Search Skills..." id="searchBar">
-            <select id="category">
-                <option value="">Select Category</option>
-                <option value="Web Development">Web Development</option>
-                <option value="Full Stack">Full Stack</option>
-                <option value="Instruments">Instruments</option>
-                <option value="Languages">Languages</option>
-            </select>
+            <input type="text" placeholder="Search User..." id="searchBar">
+            <input type="text" placeholder="Search Skill..." id="skillSearch">
             <select id="rating">
                 <option value="">Rating</option>
                 <option value="5">5 Stars</option>
                 <option value="4">4 Stars</option>
                 <option value="3">3 Stars</option>
             </select>
-            <select id="language">
-                <option value="">Select Language</option>
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-            </select>
         </form>
     </section>
 
     <!-- User Grid Section -->
     <section class="user-grid" id="userGrid">
-        <!-- Multiple User Cards -->
-        <div class="user-card" data-category="Web Development" data-rating="5" data-language="English">
-            <img src="https://source.unsplash.com/random/400x200/?coding" alt="User Skill">
-            <h3>John Doe</h3>
-            <p>Web Developer | 5⭐</p>
-            <p>Languages: English</p>
-        </div>
-        <div class="user-card" data-category="Instruments" data-rating="4" data-language="Spanish">
-            <img src="https://source.unsplash.com/random/400x200/?guitar" alt="User Skill">
-            <h3>Jane Smith</h3>
-            <p>Guitar Teacher | 4⭐</p>
-            <p>Languages: Spanish</p>
-        </div>
-        <div class="user-card" data-category="Languages" data-rating="3" data-language="French">
-            <img src="https://source.unsplash.com/random/400x200/?language" alt="User Skill">
-            <h3>Emily Johnson</h3>
-            <p>French Tutor | 3⭐</p>
-            <p>Languages: French</p>
-        </div>
-        <div class="user-card" data-category="Full Stack" data-rating="4" data-language="German">
-            <img src="https://source.unsplash.com/random/400x200/?programming" alt="User Skill">
-            <h3>Michael Brown</h3>
-            <p>Full Stack Developer | 4⭐</p>
-            <p>Languages: German</p>
-        </div>
+        <!-- User Cards will be dynamically loaded here -->
     </section>
 </main>
 
