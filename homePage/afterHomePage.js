@@ -60,14 +60,13 @@ function loadUsers() {
             for (const userId in users) {
                 const user = users[userId];
                 const userCard = `
-                    <div class="user-card" 
-                        data-skills="${user.skills || ''}" 
-                        data-rating="${user.rating || ''}" 
-                        data-username="${user.username || ''}">
-                        <img src="${user.profilePicture || 'https://example.com/default-profile-icon.jpg'}" alt="User Skill">
-                        <h3>${user.username || 'Anonymous'}</h3>
-                        <p>${user.skills || 'No Skills Listed'} | ${user.rating || 'No Rating'}⭐</p>
-                    </div>`;
+                    <a href="/otheruserprofile/user.html?userId=${userId}" class="user-card">
+                        <div data-skills="${user.skills || ''}" data-rating="${user.rating || ''}" data-username="${user.username || ''}">
+                            <img src="${user.profilePicture || 'https://example.com/default-profile-icon.jpg'}" alt="User Skill">
+                            <h3>${user.username || 'Anonymous'}</h3>
+                            <p>${user.skills || 'No Skills Listed'} | ${user.rating || 'No Rating'}⭐</p>
+                        </div>
+                    </a>`;
                 userGrid.innerHTML += userCard;
             }
         } else {
