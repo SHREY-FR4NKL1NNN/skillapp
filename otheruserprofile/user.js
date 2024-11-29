@@ -61,11 +61,54 @@ function loadUserProfile() {
             // Handle Availability
             const availability = user.availability || 'Not Available';
             document.getElementById("availability").textContent = availability;
+
+            // Store the user's phone number and email in global variables
+            window.userPhone = user.phoneNumber;
+            window.userEmail = user.email;
         } else {
             console.warn("User data not found.");
         }
     });
 }
+
+// Function to handle opening the modal for contact options
+function openContactModal() {
+    const modal = document.getElementById("contactModal");
+    modal.style.display = "block";
+}
+
+// Close the modal when the user clicks the close button
+document.getElementById("closeModal").addEventListener("click", () => {
+    const modal = document.getElementById("contactModal");
+    modal.style.display = "none";
+});
+
+// Function to initiate a call
+function initiateCall() {
+    if (window.userPhone) {
+        window.location.href = `tel:${window.userPhone}`;
+    }
+}
+
+// Function to initiate a text message
+function sendText() {
+    if (window.userPhone) {
+        window.location.href = `sms:${window.userPhone}`;
+    }
+}
+
+// Function to send an email
+function sendEmail() {
+    if (window.userEmail) {
+        window.location.href = `mailto:${window.userEmail}`;
+    }
+}
+
+// Set up the event listeners for the contact options
+document.getElementById("contactBtn").addEventListener("click", openContactModal);
+document.getElementById("textOption").addEventListener("click", sendText);
+document.getElementById("callOption").addEventListener("click", initiateCall);
+document.getElementById("emailOption").addEventListener("click", sendEmail);
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', loadUserProfile);
