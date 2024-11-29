@@ -24,6 +24,7 @@ const countryElem = document.getElementById('country');
 const phoneNumberElem = document.getElementById('phone-number');
 const skillsContainer = document.getElementById('skills-container');
 const profilePictureElem = document.getElementById('avatar');
+const bioElem = document.getElementById('bio');
 
 // Listen for authentication state change to get the current user's UID
 onAuthStateChanged(auth, (user) => {
@@ -51,6 +52,13 @@ onAuthStateChanged(auth, (user) => {
                     });
                 } else {
                     skillsContainer.innerHTML = '<p>No skills added yet.</p>';
+                }
+
+                // Display the bio if available
+                if (userData.bio) {
+                    bioElem.textContent = userData.bio;
+                } else {
+                    bioElem.textContent = 'No bio added yet.';
                 }
 
                 // Optionally, display the profile picture if available
