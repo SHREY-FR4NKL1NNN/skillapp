@@ -1,13 +1,13 @@
-import { 
-  initializeApp 
+import {
+  initializeApp
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 
-import { 
-  getAuth, 
-  signInWithEmailAndPassword, 
-  fetchSignInMethodsForEmail, 
-  GoogleAuthProvider, 
-  signInWithPopup 
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 // Firebase config
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!signInMethods || signInMethods.length === 0) {
           alert("No account found with this email. Please register first.");
         } else if (signInMethods.includes("password")) {
-          // Try signing in with email/password
+          // Existing account with password, try signing in
           signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               const user = userCredential.user;
