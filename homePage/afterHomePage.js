@@ -58,3 +58,4 @@ function loadProfilePicture() {
 window.addEventListener('DOMContentLoaded', (event) => {
     loadProfilePicture(); // Call the function to load the profile picture
 });
+
