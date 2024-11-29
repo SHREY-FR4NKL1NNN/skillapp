@@ -1,6 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -15,13 +14,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Function to fetch and display the profile picture
+// Function to load the profile picture for the logged-in user
 function loadProfilePicture() {
-    const userId = localStorage.getItem('uid');
     const profileImage = document.getElementById('profileIcon');
+    const userId = localStorage.getItem('uid'); // Assume uid is stored in localStorage when the user logs in
 
     if (!profileImage) {
         console.error("Profile image element not found.");
@@ -29,35 +27,85 @@ function loadProfilePicture() {
     }
 
     if (!userId) {
-        console.log("No user logged in.");
-        profileImage.src = 'path/to/default-image.jpg';
-        profileImage.style.display = 'block';
+        console.warn("No user ID found. Using default image.");
+        profileImage.src = 'https://example.com/default-profile-icon.jpg'; // Replace with your default icon URL
         return;
     }
 
     const userRef = ref(db, `users/${userId}`);
-    get(userRef)
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                const userData = snapshot.val();
-                profileImage.src = userData.profilePicture || 'path/to/default-image.jpg';
-            } else {
-                profileImage.src = 'https://imgs.search.brave.com/Ct_Ry0WKdR3KWGIn5Ibd5znBQpfVaCNY2mPl2n2WlhE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzY0LzY3LzYz/LzM2MF9GXzY0Njc2/MzgzX0xkYm1oaU5N/NllwemIzRk00UFB1/RlA5ckhlN3JpOEp1/LmpwZw';
-            }
-            profileImage.style.display = 'block';
-        })
-        .catch((error) => {
-            console.error("Error fetching user data:", error);
-            profileImage.src = 'path/to/default-image.jpg';
-            profileImage.style.display = 'block';
-        });
+    onValue(userRef, (snapshot) => {
+        if (snapshot.exists()) {
+            const userData = snapshot.val();
+            profileImage.src = userData.profilePicture || 'https://example.com/default-profile-icon.jpg';
+        } else {
+            console.warn("User data not found in database. Using default image.");
+            profileImage.src = 'https://example.com/default-profile-icon.jpg';
+        }
+    }, (error) => {
+        console.error("Error fetching user data:", error);
+        profileImage.src = 'https://example.com/default-profile-icon.jpg';
+    });
+}
 
-    profileImage.parentElement.addEventListener('click', () => {
-        window.location.href = '/skillapp/profilePage/profilepage.html';
+// Function to load all users and display them
+function loadUsers() {
+    const userGrid = document.getElementById('userGrid');
+    const usersRef = ref(db, 'users');
+
+    // Listen for real-time updates
+    onValue(usersRef, (snapshot) => {
+        userGrid.innerHTML = ''; // Clear existing content
+        if (snapshot.exists()) {
+            const users = snapshot.val();
+            for (const userId in users) {
+                const user = users[userId];
+                const userCard = `
+                    <div class="user-card" 
+                        data-skills="${user.skills || ''}" 
+                        data-rating="${user.rating || ''}" 
+                        data-username="${user.username || ''}">
+                        <img src="${user.profilePicture || 'https://example.com/default-profile-icon.jpg'}" alt="User Skill">
+                        <h3>${user.username || 'Anonymous'}</h3>
+                        <p>${user.skills || 'No Skills Listed'} | ${user.rating || 'No Rating'}⭐</p>
+                    </div>`;
+                userGrid.innerHTML += userCard;
+            }
+        } else {
+            userGrid.innerHTML = '<p>No users found.</p>';
+        }
+    });
+}
+
+// Function to filter users
+function filterUsers() {
+    const skillSearch = document.getElementById('skillSearch').value.toLowerCase();
+    const rating = document.getElementById('rating').value;
+    const searchInput = document.getElementById('searchBar').value.toLowerCase();
+    const userCards = document.querySelectorAll('.user-card');
+
+    userCards.forEach((card) => {
+        const cardSkills = card.getAttribute('data-skills').toLowerCase();
+        const cardRating = card.getAttribute('data-rating');
+        const cardUsername = card.getAttribute('data-username').toLowerCase();
+
+        const matchesSkills = !skillSearch || cardSkills.includes(skillSearch);
+        const matchesRating = !rating || cardRating === rating;
+        const matchesSearch = !searchInput || cardUsername.includes(searchInput);
+
+        if (matchesSkills && matchesRating && matchesSearch) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
     });
 }
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', () => {
-    loadProfilePicture();
+    loadUsers();
+    loadProfilePicture(); // Ensure the profile picture is loaded
+
+    // Add event listeners for filters
+    const filterForm = document.getElementById('filterForm');
+    filterForm.addEventListener('input', filterUsers); // Update filtering as the user types
 });

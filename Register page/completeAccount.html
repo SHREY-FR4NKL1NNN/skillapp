@@ -11,9 +11,7 @@
 
 <body>
     <header>
-        <div class="container header-container">
-            <!-- <div class="logo"><a id="logo" href="../homePage/afterHomePage.html">Skill Exchange</a></div> -->
-        </div>
+        <div class="container header-container"></div>
     </header>
 
     <main>
@@ -24,6 +22,10 @@
                 <form id="complete-account-form">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required><br><br>
+
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio" placeholder="Tell us about yourself..." rows="3" required></textarea><br><br>
+
                     <label for="skills">Skills</label>
                     <div id="skills-container">
                         <input type="text" id="skill-input" placeholder="Enter a skill">
@@ -31,10 +33,23 @@
                         <button type="button" id="add-skill">Add Skill</button>
                     </div>
                     <ul id="skills-list"></ul><br>
+
+                    <label for="profile-picture">Profile Picture</label>
+                    <div id="profile-picture-grid">
+                        <img src="/assets/profile_pictures/pic1.webp" class="profile-option" alt="Profile 1">
+                        <img src="/assets/profile_pictures/pic2.webp" class="profile-option" alt="Profile 2">
+                        <img src="/assets/profile_pictures/pic3.webp" class="profile-option" alt="Profile 3">
+                        <img src="/assets/profile_pictures/pic4.webp" class="profile-option" alt="Profile 4">
+                    </div>
+                    <input type="hidden" id="selected-profile-picture" name="profile-picture" required>
+                    <p id="profile-selection-error" style="color: red; display: none;">Please select a profile picture.</p><br><br>
+
                     <label for="country">Country</label>
                     <input type="text" id="country" name="country" required><br><br>
+
                     <label for="phone-number">Phone Number</label>
                     <input type="text" id="phone-number" name="phone-number" required><br><br>
+
                     <button type="submit" id="submit">Submit</button>
                 </form>
             </div>
@@ -43,4 +58,3 @@
 </body>
 
 </html>
-
