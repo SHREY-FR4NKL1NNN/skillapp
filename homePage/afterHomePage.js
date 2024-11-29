@@ -42,7 +42,7 @@ function loadProfilePicture() {
                 const userData = snapshot.val();
                 profileImage.src = userData.profilePicture || 'path/to/default-image.jpg';
             } else {
-                profileImage.src = 'path/to/default-image.jpg';
+                profileImage.src = 'https://imgs.search.brave.com/Ct_Ry0WKdR3KWGIn5Ibd5znBQpfVaCNY2mPl2n2WlhE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzY0LzY3LzYz/LzM2MF9GXzY0Njc2/MzgzX0xkYm1oaU5N/NllwemIzRk00UFB1/RlA5ckhlN3JpOEp1/LmpwZw';
             }
             profileImage.style.display = 'block';
         })
