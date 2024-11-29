@@ -62,7 +62,7 @@ function loadUsers() {
                 
                 // Wrap the card in a link to the user's profile page
                 const userCard = `
-                    <a href="/ProfilePage/profile.html?userId=${userId}" class="user-card-link">
+                    <a href="/otheruserprofile/user.html?userId=${userId}" class="user-card-link">
                         <div class="user-card" 
                             data-skills="${user.skills || ''}" 
                             data-rating="${user.rating || ''}" 
@@ -94,9 +94,9 @@ function filterUsers() {
         const cardRating = card.getAttribute('data-rating') ? card.getAttribute('data-rating') : '';
         const cardUsername = card.getAttribute('data-username') ? card.getAttribute('data-username').toLowerCase() : '';
 
-        const matchesSkills = !skillSearch || cardSkills.includes(skillSearch);
+        const matchesSkills = !skillSearch || cardSkills.startsWith(skillSearch);
         const matchesRating = !rating || cardRating === rating;
-        const matchesSearch = !searchInput || cardUsername.includes(searchInput);
+        const matchesSearch = !searchInput || cardUsername.startsWith(searchInput);
 
         if (matchesSkills && matchesRating && matchesSearch) {
             card.style.display = 'block';  // Show the card
@@ -105,6 +105,7 @@ function filterUsers() {
         }
     });
 }
+
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', () => {
