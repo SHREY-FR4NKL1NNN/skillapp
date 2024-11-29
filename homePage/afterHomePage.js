@@ -16,46 +16,48 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getDatabase(app); // Initialize the database
-
-// Get userId from localStorage
-const userId = localStorage.getItem('uid'); // Fetch the user's UID from localStorage
-
-// Reference to the profile image element
-const profileImage = document.getElementById('profile-picture');
+const db = getDatabase(app);
 
 // Function to fetch and display the profile picture
 function loadProfilePicture() {
-    console.log("Fetching profile picture for user:", userId); // Debug log
-    if (userId) {
-        const userRef = ref(db, 'users/' + userId); // Reference to user's data
-        get(userRef).then((snapshot) => {
+    const userId = localStorage.getItem('uid');
+    const profileImage = document.getElementById('profileIcon');
+
+    if (!profileImage) {
+        console.error("Profile image element not found.");
+        return;
+    }
+
+    if (!userId) {
+        console.log("No user logged in.");
+        profileImage.src = 'path/to/default-image.jpg';
+        profileImage.style.display = 'block';
+        return;
+    }
+
+    const userRef = ref(db, `users/${userId}`);
+    get(userRef)
+        .then((snapshot) => {
             if (snapshot.exists()) {
                 const userData = snapshot.val();
-                console.log("User data fetched:", userData); // Log user data for debugging
-
-                if (userData.profilePicture) {
-                    console.log("Profile Picture URL:", userData.profilePicture); // Debug log
-                    profileImage.src = userData.profilePicture; // Set the profile image to the fetched URL
-                    profileImage.style.display = 'block'; // Ensure the image is visible
-                } else {
-                    console.log("No profile picture available.");
-                    profileImage.src = 'path/to/default-image.jpg'; // Set a fallback image
-                    profileImage.style.display = 'block'; // Ensure it's visible even with fallback
-                }
+                profileImage.src = userData.profilePicture || 'path/to/default-image.jpg';
             } else {
-                console.log("No data available for this user.");
+                profileImage.src = 'path/to/default-image.jpg';
             }
-        }).catch((error) => {
+            profileImage.style.display = 'block';
+        })
+        .catch((error) => {
             console.error("Error fetching user data:", error);
+            profileImage.src = 'path/to/default-image.jpg';
+            profileImage.style.display = 'block';
         });
-    } else {
-        console.log("No user logged in.");
-    }
+
+    profileImage.parentElement.addEventListener('click', () => {
+        window.location.href = '/skillapp/profilePage/profilepage.html';
+    });
 }
 
-// Wait for DOM content to be fully loaded before executing the script
-window.addEventListener('DOMContentLoaded', (event) => {
-    loadProfilePicture(); // Call the function to load the profile picture
+// DOM Content Loaded
+document.addEventListener('DOMContentLoaded', () => {
+    loadProfilePicture();
 });
-

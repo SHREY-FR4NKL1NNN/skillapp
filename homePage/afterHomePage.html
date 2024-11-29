@@ -4,158 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skill Exchange</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-
-        /* Header */
-        header {
-            background-color: #3b5998;
-            padding: 15px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-links li {
-            margin: 0 15px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* Profile Icon Dropdown */
-        .profile-icon {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .profile-icon img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .profile-dropdown {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background-color: white;
-            color: #333;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 150px;
-            z-index: 1000;
-        }
-
-        .profile-dropdown a {
-            display: block;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .profile-dropdown a:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            background-color: #e0e0e0;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            width: 80%;
-            margin: 20px auto;
-        }
-
-        .filter-section input,
-        .filter-section select {
-            padding: 10px;
-            width: calc(24% - 10px);
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 5px 5px 5px 0;
-        }
-
-        /* User Grid */
-        .user-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            width: 80%;
-            margin: 0 auto 20px;
-        }
-
-        .user-card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .user-card h3 {
-            margin: 15px 0 5px;
-        }
-
-        .user-card p {
-            margin: 0 0 10px;
-            color: #555;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            padding: 10px 0;
-            color: #fcfafa;
-            text-align: center;
-            margin-top: auto;
-        }
-    </style>
+    <script src="afterHomepage.js" defer></script>
+    <link rel="stylesheet" href="afterHomeCss.css">
 </head>
-<body style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
+<body>
 
 <header>
     <div class="container header-container">
@@ -164,12 +16,10 @@
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#features">Features</a></li>
-                <div class="profile-icon" onclick="toggleDropdown()">
-                    <img src="" alt="Profile Icon" id="profileIcon">
-                    <div class="profile-dropdown" id="profileDropdown">
-                        <a href="/skillapp/ProfilePage/profile.html">Profile</a>
-                        <a href="#" onclick="logout()">Logout</a>
-                    </div>
+                <div class="profile-icon">
+                    <a href="javascript:void(0)">
+                        <img src="" alt="Profile Icon" id="profileIcon">
+                    </a>
                 </div>
             </ul>
         </nav>
@@ -180,21 +30,21 @@
     <!-- Filter Section -->
     <section class="filter-section">
         <form id="filterForm">
-            <input type="text" placeholder="Search Skills..." id="searchBar" oninput="filterCards()">
-            <select id="category" onchange="filterCards()">
+            <input type="text" placeholder="Search Skills..." id="searchBar">
+            <select id="category">
                 <option value="">Select Category</option>
                 <option value="Web Development">Web Development</option>
                 <option value="Full Stack">Full Stack</option>
                 <option value="Instruments">Instruments</option>
                 <option value="Languages">Languages</option>
             </select>
-            <select id="rating" onchange="filterCards()">
+            <select id="rating">
                 <option value="">Rating</option>
                 <option value="5">5 Stars</option>
                 <option value="4">4 Stars</option>
                 <option value="3">3 Stars</option>
             </select>
-            <select id="language" onchange="filterCards()">
+            <select id="language">
                 <option value="">Select Language</option>
                 <option value="English">English</option>
                 <option value="Spanish">Spanish</option>
@@ -237,52 +87,6 @@
 <footer>
     <p>Skill Exchange. Built for learners everywhere.</p>
 </footer>
-
-<script>
-function filterCards() {
-    let searchQuery = document.getElementById('searchBar').value.toLowerCase();
-    let categoryFilter = document.getElementById('category').value.toLowerCase();
-    let ratingFilter = document.getElementById('rating').value;
-    let languageFilter = document.getElementById('language').value.toLowerCase();
-
-    document.querySelectorAll('.user-card').forEach(function(card) {
-        let cardCategory = card.getAttribute('data-category').toLowerCase();
-        let cardRating = card.getAttribute('data-rating');
-        let cardLanguage = card.getAttribute('data-language').toLowerCase();
-
-        if (
-            (searchQuery === '' || cardCategory.includes(searchQuery)) &&
-            (categoryFilter === '' || cardCategory === categoryFilter) &&
-            (ratingFilter === '' || cardRating === ratingFilter) &&
-            (languageFilter === '' || cardLanguage.includes(languageFilter))
-        ) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-
-document.getElementById('profileIcon').addEventListener('click', function () {
-        const dropdown = document.getElementById('profileDropdown');
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Close Dropdown on Outside Click
-    window.onclick = function (event) {
-        if (!event.target.matches('#profileIcon')) {
-            const dropdown = document.getElementById('profileDropdown');
-            if (dropdown.style.display === 'block') {
-                dropdown.style.display = 'none';
-            }
-        }
-    };
-
-    function logout() {
-        alert("You have been logged out.");
-        window.location.href = '/skillapp/homePage/home.html';
-    }
-</script>
 
 </body>
 </html>
