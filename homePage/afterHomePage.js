@@ -59,19 +59,26 @@ function loadUsers() {
             const users = snapshot.val();
             for (const userId in users) {
                 const user = users[userId];
+                
+                // Wrap the card in a link to the user's profile page
                 const userCard = `
-                    <a href="/otheruserprofile/user.html?userId=${userId}" class="user-card">
-                        <div data-skills="${user.skills || ''}" data-rating="${user.rating || ''}" data-username="${user.username || ''}">
+                    <a href="/ProfilePage/profile.html?userId=${userId}" class="user-card-link">
+                        <div class="user-card" 
+                            data-skills="${user.skills || ''}" 
+                            data-rating="${user.rating || ''}" 
+                            data-username="${user.username || ''}">
                             <img src="${user.profilePicture || 'https://example.com/default-profile-icon.jpg'}" alt="User Skill">
                             <h3>${user.username || 'Anonymous'}</h3>
                             <p>${user.skills || 'No Skills Listed'} | ${user.rating || 'No Rating'}⭐</p>
                         </div>
                     </a>`;
+                
                 userGrid.innerHTML += userCard;
             }
         } else {
             userGrid.innerHTML = '<p>No users found.</p>';
         }
+        filterUsers();  // Call filterUsers after loading the users
     });
 }
 
@@ -83,28 +90,34 @@ function filterUsers() {
     const userCards = document.querySelectorAll('.user-card');
 
     userCards.forEach((card) => {
-        const cardSkills = card.getAttribute('data-skills').toLowerCase();
-        const cardRating = card.getAttribute('data-rating');
-        const cardUsername = card.getAttribute('data-username').toLowerCase();
+        const cardSkills = card.getAttribute('data-skills') ? card.getAttribute('data-skills').toLowerCase() : '';
+        const cardRating = card.getAttribute('data-rating') ? card.getAttribute('data-rating') : '';
+        const cardUsername = card.getAttribute('data-username') ? card.getAttribute('data-username').toLowerCase() : '';
 
         const matchesSkills = !skillSearch || cardSkills.includes(skillSearch);
         const matchesRating = !rating || cardRating === rating;
         const matchesSearch = !searchInput || cardUsername.includes(searchInput);
 
         if (matchesSkills && matchesRating && matchesSearch) {
-            card.style.display = 'block';
+            card.style.display = 'block';  // Show the card
         } else {
-            card.style.display = 'none';
+            card.style.display = 'none';  // Hide the card
         }
     });
 }
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', () => {
-    loadUsers();
+    loadUsers();  // Load users with real-time updates
     loadProfilePicture(); // Ensure the profile picture is loaded
 
     // Add event listeners for filters
-    const filterForm = document.getElementById('filterForm');
-    filterForm.addEventListener('input', filterUsers); // Update filtering as the user types
+    const searchBar = document.getElementById('searchBar');
+    const skillSearch = document.getElementById('skillSearch');
+    const rating = document.getElementById('rating');
+
+    // Attach event listeners to filter inputs
+    searchBar.addEventListener('input', filterUsers); // Search by username
+    skillSearch.addEventListener('input', filterUsers); // Search by skills
+    rating.addEventListener('change', filterUsers); // Filter by rating
 });

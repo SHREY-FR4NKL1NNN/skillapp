@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skill Exchange</title>
-    <script type="module" src="afterHomepage.js" defer></script>
+    <script type="module" src="afterHomePage.js" defer></script>
     <link rel="stylesheet" href="afterHomeCss.css">
 </head>
+
 <body>
 
 <header>
@@ -16,7 +18,7 @@
             <ul class="nav-links">
                 <li><a href="/Support Page/support.html">Support</a></li>
                 <li><a href="/About Page/about.html">About</a></li>
-                <li><a href="/ChatRoomPage/ChatRoom.html">Community</a></li> 
+                <li><a href="/ChatRoomPage/ChatRoom.html">Community</a></li>
                 <div class="profile-icon">
                     <a href="/ProfilePage/profile.html">
                         <img src="" alt="Profile Icon" id="profileIcon">
@@ -30,16 +32,21 @@
 <main>
     <!-- Filter Section -->
     <section class="filter-section">
-        <form id="filterForm">
+        <div id="filterForm">
+            <label for="searchBar">Search User:</label>
             <input type="text" placeholder="Search User..." id="searchBar">
+            
+            <label for="skillSearch">Search Skill:</label>
             <input type="text" placeholder="Search Skill..." id="skillSearch">
+            
+            <label for="rating">Rating:</label>
             <select id="rating">
-                <option value="">Rating</option>
+                <option value="">Select Rating</option>
                 <option value="5">5 Stars</option>
                 <option value="4">4 Stars</option>
                 <option value="3">3 Stars</option>
             </select>
-        </form>
+        </div>
     </section>
 
     <!-- User Grid Section -->
@@ -53,4 +60,5 @@
 </footer>
 
 </body>
+
 </html>
