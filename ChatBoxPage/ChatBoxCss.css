@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background: #4caf50;
+    background: #3b5998;
     color: white;
     padding: 1rem;
     text-align: center;
@@ -60,7 +60,7 @@ textarea {
 }
 
 button {
-    background: #4caf50;
+    background: #3b5998;
     color: white;
     border: none;
     padding: 0 20px;
