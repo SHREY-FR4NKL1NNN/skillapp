@@ -3,80 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Doe - Skill Exchange Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="user.css"> <!-- Link to external CSS file -->
+    <title>Profile - Skill Exchange</title>
+    <script type="module" src="user.js" defer></script>
+    <link rel="stylesheet" href="user.css">
 </head>
-<script src="user.js" defer></script>
-
 <body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><a id="logo" href="../homePage/afterHomePage.html">Skill Exchange</a></div>
+            <nav>
+                <!-- Navigation links can be added here -->
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="profile-header">
+                <div class="profile-avatar-container">
+                    <!-- Default image shown unless the Firebase profile picture is loaded -->
+                    <img src="https://imgs.search.brave.com/Ct_Ry0WKdR3KWGIn5Ibd5znBQpfVaCNY2mPl2n2WlhE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzY0LzY3LzYz/LzM2MF9GXzY0Njc2/MzgzX0xkYm1oaU5N/NllwemIzRk00UFB1/RlA5ckhlN3JpOEp1/LmpwZw" 
+                         alt="User Avatar" class="profile-avatar" id="avatar">
+                </div>
+                <!-- Username will be dynamically inserted here -->
+                <h1 id="username">Loading...</h1>
+                <p class="tagline" id="country">Loading...</p>
+            </div>
+            
+            <div class="profile-details">
+                <div class="phone-number">
+                    <h2>Phone Number</h2>
+                    <p id="phone-number">Loading...</p>
+                </div>
+                
+                <div class="skills">
+                    <h2>Skills</h2>
+                    <div id="skills-container">
+                        <!-- Skills will be populated here dynamically -->
+                        <p>Loading skills...</p>
+                    </div>
+                </div>
 
-<header>
-    John Doe's Profile
-</header>
+                <!-- Bio Section -->
+                <div class="bio">
+                    <h2>Bio</h2>
+                    <p id="bio">Loading...</p>
+                </div>
 
-<div id="chat-box" class="chat-box hidden">
-    <div class="chat-header">
-        <h4>Chat with John Doe</h4>
-        <button class="close-chat" onclick="closeChat()">×</button>
-    </div>
-    <div class="chat-messages" id="chat-messages">
-        <!-- Chat messages will be dynamically inserted here -->
-    </div>
-    <div class="chat-input">
-        <input type="text" id="message-input" placeholder="Type a message..." onkeydown="handleKeyPress(event)">
-        <button onclick="sendMessage()">Send</button>
-    </div>
-</div>
-
-<div class="container">
-    <!-- Profile Section -->
-    <section class="profile-section">
-        <div class="profile-image">
-            <img src="https://source.unsplash.com/random/150x150/?man" alt="John Doe">
-        </div>
-        <div class="profile-details">
-            <h2>John Doe</h2>
-            <p>Web Developer | 5⭐</p>
-            <p>Languages: English, Spanish</p>
-            <a href="#" class="contact-btn" onclick="openChat()">Contact John Doe</a>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills-section">
-        <h3>Skills Offered</h3>
-        <div class="skill-item">
-            <span>Web Development</span>
-            <span>Rate: $25/hour</span>
-        </div>
-        <div class="skill-item">
-            <span>Full Stack Development</span>
-            <span>Rate: $30/hour</span>
-        </div>
-        <div class="skill-item">
-            <span>JavaScript</span>
-            <span>Rate: $20/hour</span>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <h3>Reviews</h3>
-        <div class="review-item">
-            <h4>Sarah Johnson</h4>
-            <p>John is an amazing teacher! I learned so much about web development in just a few sessions.</p>
-        </div>
-        <div class="review-item">
-            <h4>Michael Lee</h4>
-            <p>Highly recommend John for anyone looking to learn Full Stack Development. He's knowledgeable and patient.</p>
-        </div>
-        <div class="review-item">
-            <h4>Emily Brown</h4>
-            <p>Great experience learning JavaScript from John. He explained concepts clearly and provided hands-on examples.</p>
-        </div>
-    </section>
-</div>
-
+                <div class="availability">
+                    <h2>Availability</h2>
+                    <p>Mon - Fri: 9 AM - 5 PM</p>
+                    <p>Sat: 10 AM - 2 PM</p>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
